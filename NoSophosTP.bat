@@ -4,6 +4,14 @@ Title No Sophos TP
 Color 17
 
 :MENU
+ECHO ..............................................................................................
+ECHO .
+ECHO      88b 88  dP"Yb      .dP"Y8  dP"Yb  88""Yb 88  88  dP"Yb  .dP"Y8     888888 88""Yb 
+ECHO      88Yb88 dP   Yb     `Ybo." dP   Yb 88__dP 88  88 dP   Yb `Ybo."       88   88__dP 
+ECHO      88 Y88 Yb   dP     o.`Y8b Yb   dP 88"""  888888 Yb   dP o.`Y8b       88   88"""  
+ECHO      88  Y8  YbodP      8bodP'  YbodP  88     88  88  YbodP  8bodP'       88   88     
+ECHO .
+ECHO ..............................................................................................
 ECHO .
 ECHO ...............................................
 ECHO PRESS 1 or 2 to select your task, or q to EXIT.
@@ -49,6 +57,7 @@ ECHO ===========PRESS ANY KEY TO CONTINUE===========
 pause > NUL
 cls
 shutdown -r -t 00
+EXIT
 
 :ENTP
 CLS
@@ -69,6 +78,7 @@ ECHO ===========PRESS ANY KEY TO CONTINUE===========
 pause > NUL
 cls
 shutdown -r -t 00
+EXIT
 
 :QUIT
 EXIT
