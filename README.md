@@ -1,6 +1,7 @@
 # No_Sophos_TamperProtection
 Disable the Tamper Protection of managed Sophos client without password to work with its services or removal
 
+![NoSophos](https://user-images.githubusercontent.com/20796385/177294557-e7a0f74e-e05e-49d6-8fb0-a37e5ec23209.png)
 
 As a desktop engineer, bigger company means the PC always install things with password locked, and you can't unlock it to get your work done even it is ugent, and you will feel extremely s**ks, like Sophos Endpoint/Intercept X client.
 
