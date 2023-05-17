@@ -19,7 +19,7 @@ ECHO This process needs to do twice to ensure it is totally loaded by SOPHOS
 ECHO Now Please Input the Drive Letter of the system you need to modify
 ECHO ...............................................
 SET DRIVELETTER=
-SET /P DRIVELETTER=Please select a number then press ENTER:
+SET /P DRIVELETTER=Please Input the Drive Letter of the system you need to modify and Press ENTER:
 
 
 :MENU
