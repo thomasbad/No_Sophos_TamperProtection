@@ -11,15 +11,11 @@ $host.UI.RawUI.WindowTitle = "No Sophos TP"
 
 function DISTP {
     Clear-Host
-    $Driveloader = Read-Host -Prompt 'Please enter the system drive lable (C?)'
-    if (-not (Test-Path -Path "${Driveloader}:\")){
-        Write-Warning '----- Invaild Drive inputed, please check the correct letter of your system Drive'}
-    else{
-        if (-not (Test-Path -Path "${Driveloader}:\Windows\System32\config")){
+    if (-not (Test-Path -Path "{$DriveLetter}:\Windows\System32\config")){
         Write-Warning '---------Invaild Drive, no config file have been found, please ensure this is the system drive-------------'
         }else{
-            REG LOAD HKLM\TEMPSYSTEM "${Driveloader}:\Windows\System32\config\SYSTEM"
-            REG LOAD HKLM\TEMPSOFTWARE "C:\Windows\System32\config\SOFTWARE"
+            REG LOAD HKLM\TEMPSYSTEM "{$DriveLetter}:\Windows\System32\config\SYSTEM"
+            REG LOAD HKLM\TEMPSOFTWARE "{$DriveLetter}:\Windows\System32\config\SOFTWARE"
             New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos MCS Agent" -Name Start -PropertyType DWord -Value "4" -Force
             New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SAVEnabled -PropertyType DWord -Value "0" -Force
             New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SEDEnabled -PropertyType DWord -Value "0" -Force
@@ -27,7 +23,6 @@ function DISTP {
             REG UNLOAD HKLM\TEMPSYSTEM
             REG UNLOAD HKLM\TEMPSOFTWARE
         }
-    }
     Clear-Host
     Write-Host @'
 ===================COMPLETED===================
@@ -43,15 +38,11 @@ function DISTP {
 
 function ENTP {
     Clear-Host
-    $Driveloader = Read-Host -Prompt 'Please enter the system drive lable (C?)'
-    if (-not (Test-Path -Path "${Driveloader}:\")){
-        Write-Warning '----- Invaild Drive inputed, please check the correct letter of your system Drive'}
-    else{
-        if (-not (Test-Path -Path "${Driveloader}:\Windows\System32\config")){
+    if (-not (Test-Path -Path "{$DriveLetter}:\Windows\System32\config")){
         Write-Warning '---------Invaild Drive, no config file have been found, please ensure this is the system drive-------------'
         }else{
-            REG LOAD HKLM\TEMPSYSTEM "${Driveloader}:\Windows\System32\config\SYSTEM"
-            REG LOAD HKLM\TEMPSOFTWARE "C:\Windows\System32\config\SOFTWARE"
+            REG LOAD HKLM\TEMPSYSTEM "{$DriveLetter}:\Windows\System32\config\SYSTEM"
+            REG LOAD HKLM\TEMPSOFTWARE "{$DriveLetter}:\Windows\System32\config\SOFTWARE"
             New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos MCS Agent" -Name Start -PropertyType DWord -Value "2" -Force
             New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SAVEnabled -PropertyType DWord -Value "1" -Force
             New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SEDEnabled -PropertyType DWord -Value "1" -Force
@@ -59,7 +50,6 @@ function ENTP {
             REG UNLOAD HKLM\TEMPSYSTEM
             REG UNLOAD HKLM\TEMPSOFTWARE
         }
-    }
     Clear-Host
     Write-Host @'
 ===================COMPLETED===================
@@ -71,6 +61,28 @@ function ENTP {
 '@
     Read-Host
     Exit
+}
+
+function First-Menu {
+    Clear-Host
+    Write-Host @'
+..............................................................................................
+
+      88b 88  dP"Yb      .dP"Y8  dP"Yb  88""Yb 88  88  dP"Yb  .dP"Y8     888888 88""Yb 
+      88Yb88 dP   Yb     `Ybo." dP   Yb 88__dP 88  88 dP   Yb `Ybo."       88   88__dP 
+      88 Y88 Yb   dP     o.`Y8b Yb   dP 88"""  888888 Yb   dP o.`Y8b       88   88"""  
+      88  Y8  YbodP      8bodP'  YbodP  88     88  88  YbodP  8bodP'       88   88     
+
+..............................................................................................
+......................................................................................
+ Remember You Should run this as Admin under WIN PE.
+ This process needs to do twice to ensure it is totally loaded by SOPHOS.
+ Now Please Input the Drive Letter of the system you need to modify.
+......................................................................................
+
+'@
+$DriveLetter = Read-Host -Prompt 'Please Input the Drive Letter of the system you need to modify and Press ENTER:'
+Display-Menu
 }
 
 function Display-Menu {
@@ -141,4 +153,4 @@ switch -Exact ($Choice)
     }
 }
 
-Display-Menu
+First-Menu
