@@ -9,59 +9,6 @@ if (-NOT ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdenti
 }
 $host.UI.RawUI.WindowTitle = "No Sophos TP"
 
-function DISTP {
-    Clear-Host
-    if (-not (Test-Path -Path "{$DriveLetter}:\Windows\System32\config")){
-        Write-Warning '---------Invaild Drive, no config file have been found, please ensure this is the system drive-------------'
-        }else{
-            REG LOAD HKLM\TEMPSYSTEM "{$DriveLetter}:\Windows\System32\config\SYSTEM"
-            REG LOAD HKLM\TEMPSOFTWARE "{$DriveLetter}:\Windows\System32\config\SOFTWARE"
-            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos MCS Agent" -Name Start -PropertyType DWord -Value "4" -Force
-            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SAVEnabled -PropertyType DWord -Value "0" -Force
-            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SEDEnabled -PropertyType DWord -Value "0" -Force
-            New-ItemProperty -Path "HKLM:\TEMPSOFTWARE\WOW6432Node\Sophos\SAVService\TamperProtection" -Name Enabled -PropertyType DWord -Value "0" -Force
-            REG UNLOAD HKLM\TEMPSYSTEM
-            REG UNLOAD HKLM\TEMPSOFTWARE
-        }
-    Clear-Host
-    Write-Host @'
-===================COMPLETED===================
------------------------------------------------
-       Sophos Tamper Protection disabled.
-        Press any key to reboot the PC.
------------------------------------------------
-===========PRESS ANY KEY TO CONTINUE===========
-'@
-    Read-Host
-    Exit
-}
-
-function ENTP {
-    Clear-Host
-    if (-not (Test-Path -Path "{$DriveLetter}:\Windows\System32\config")){
-        Write-Warning '---------Invaild Drive, no config file have been found, please ensure this is the system drive-------------'
-        }else{
-            REG LOAD HKLM\TEMPSYSTEM "{$DriveLetter}:\Windows\System32\config\SYSTEM"
-            REG LOAD HKLM\TEMPSOFTWARE "{$DriveLetter}:\Windows\System32\config\SOFTWARE"
-            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos MCS Agent" -Name Start -PropertyType DWord -Value "2" -Force
-            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SAVEnabled -PropertyType DWord -Value "1" -Force
-            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SEDEnabled -PropertyType DWord -Value "1" -Force
-            New-ItemProperty -Path "HKLM:\TEMPSOFTWARE\WOW6432Node\Sophos\SAVService\TamperProtection" -Name Enabled -PropertyType DWord -Value "1" -Force
-            REG UNLOAD HKLM\TEMPSYSTEM
-            REG UNLOAD HKLM\TEMPSOFTWARE
-        }
-    Clear-Host
-    Write-Host @'
-===================COMPLETED===================
------------------------------------------------
-        Sophos Tamper Protection enabled.
-         Press any key to reboot the PC.
------------------------------------------------
-===========PRESS ANY KEY TO CONTINUE===========
-'@
-    Read-Host
-    Exit
-}
 
 function First-Menu {
     Clear-Host
@@ -151,6 +98,68 @@ switch -Exact ($Choice)
         Display-Menu
         }
     }
+}
+
+$InputPath = Test-Path ${DriveLetter}:\Windows\System32\config
+
+function DISTP {
+    Clear-Host
+    if ($InputPath -eq $false){
+        Clear-Host
+        Write-Warning '---------Invaild Drive, no config file have been found, please ensure this is the system drive-------------'
+        Read-Host
+        First-Menu
+        }else{
+            REG LOAD HKLM\TEMPSYSTEM "${DriveLetter}:\Windows\System32\config\SYSTEM"
+            REG LOAD HKLM\TEMPSOFTWARE "${DriveLetter}:\Windows\System32\config\SOFTWARE"
+            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos MCS Agent" -Name Start -PropertyType DWord -Value "4" -Force
+            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SAVEnabled -PropertyType DWord -Value "0" -Force
+            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SEDEnabled -PropertyType DWord -Value "0" -Force
+            New-ItemProperty -Path "HKLM:\TEMPSOFTWARE\WOW6432Node\Sophos\SAVService\TamperProtection" -Name Enabled -PropertyType DWord -Value "0" -Force
+            REG UNLOAD HKLM\TEMPSYSTEM
+            REG UNLOAD HKLM\TEMPSOFTWARE
+        }
+    Clear-Host
+    Write-Host @'
+===================COMPLETED===================
+-----------------------------------------------
+       Sophos Tamper Protection disabled.
+        Press any key to reboot the PC.
+-----------------------------------------------
+===========PRESS ANY KEY TO CONTINUE===========
+'@
+    Read-Host
+    Exit
+}
+
+function ENTP {
+    Clear-Host
+    if ($InputPath -eq $false){
+        Clear-Host
+        Write-Warning '---------Invaild Drive, no config file have been found, please ensure this is the system drive-------------'
+        Read-Host
+        First-Menu
+        }else{
+            REG LOAD HKLM\TEMPSYSTEM "${DriveLetter}:\Windows\System32\config\SYSTEM"
+            REG LOAD HKLM\TEMPSOFTWARE "${DriveLetter}:\Windows\System32\config\SOFTWARE"
+            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos MCS Agent" -Name Start -PropertyType DWord -Value "2" -Force
+            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SAVEnabled -PropertyType DWord -Value "1" -Force
+            New-ItemProperty -Path "HKLM:\TEMPSYSTEM\ControlSet001\Services\Sophos Endpoint Defense\TamperProtection\Config" -Name SEDEnabled -PropertyType DWord -Value "1" -Force
+            New-ItemProperty -Path "HKLM:\TEMPSOFTWARE\WOW6432Node\Sophos\SAVService\TamperProtection" -Name Enabled -PropertyType DWord -Value "1" -Force
+            REG UNLOAD HKLM\TEMPSYSTEM
+            REG UNLOAD HKLM\TEMPSOFTWARE
+        }
+    Clear-Host
+    Write-Host @'
+===================COMPLETED===================
+-----------------------------------------------
+        Sophos Tamper Protection enabled.
+         Press any key to reboot the PC.
+-----------------------------------------------
+===========PRESS ANY KEY TO CONTINUE===========
+'@
+    Read-Host
+    Exit
 }
 
 First-Menu
