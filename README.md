@@ -19,9 +19,13 @@ If you convert this into exe format, Sophos may have chance to detect and remove
 
 ## How to use:
 Step 1. Create a WIN PE USB boot disk, whatever you like, like medicat USB or NoName XPE, boot from it
+
 Step 2. Check what is the drive letter of the original system disk being loaded in WIN PE envoriment
+
 Step 3. Run this tool, follow the step
+
 Step 4. Once it reboot and enter to the login screen, login, then shutdown and repeat from Step 1 again
+
 Step 5. Done, it should be now eiter locked or unlocked, depending on your choice.
 
 ## The PowerShell version now working! It said cannot be loaded because running scripts is disabled on this system!
