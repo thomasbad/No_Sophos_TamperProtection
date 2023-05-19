@@ -16,7 +16,7 @@ Step 2. Check what is the drive letter of the original system disk being loaded 
 
 Step 3. Run this tool, follow the step
 
-Step 4. Once it reboot and enter to the login screen, login, then shutdown and repeat from Step 1 again
+Step 4. Once it reboot and enter to the login screen, login, if it not works, then shutdown and repeat from Step 1 again. It would maximum just needs to do twice.
 
 Step 5. Done, it should be now eiter locked or unlocked, depending on your choice.
 
