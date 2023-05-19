@@ -40,3 +40,5 @@ Set-ExecutionPolicy Unrestricted
 No time to fix the Drive Letter vaildation check yet, just input the correct the drive letter and it will work.
 
 The GUI version haven't been test yet, but since the code is mostly copy from CLI version, it should works fine. If it doesn't, please let me know.
+
+If you tired to try, CLI Batch one should always works as I tested on Windows 10 and 11
