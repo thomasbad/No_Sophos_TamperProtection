@@ -73,6 +73,11 @@ function RebootPC {
     }
 }
 
+#How To Use display
+function htuDisplay {
+    $htuMsg = [System.Windows.MessageBox]::Show($htuBody,$htuTitle,$ButtonOK,$htuIcon)
+}
+
 
 # Init PowerShell Gui
 Add-Type -AssemblyName System.Windows.Forms
@@ -93,18 +98,23 @@ $Titel.height                    = 10
 $Titel.location                  = New-Object System.Drawing.Point(20,10)
 $Titel.Font                      = 'Microsoft Sans Serif,13'
 $Description                     = New-Object system.Windows.Forms.Label
-$Description.text                = "Run this program as admin under WINPE envornment`n(For example: Medicat USB).`nIt needs to reboot to your normal Windows, `nthen do it again to make it work."
+$Description.text                = "Please read How To Use carefully if it is the first time you use this tool"
+$Description.ForeColor           = "#D0021B"
 $Description.AutoSize            = $false
 $Description.width               = 450
-$Description.height              = 80
+$Description.height              = 20
 $Description.location            = New-Object System.Drawing.Point(20,40)
 $Description.Font                = 'Microsoft Sans Serif,10'
 $DriveInputMsg                   = New-Object system.Windows.Forms.Label
 $DriveInputMsg.text              = "Please input your correct system drive letter here:"
+$DriveInputMsg.Font              = 'Microsoft Sans Serif,10,style=Bold'
 $DriveInputMsg.AutoSize          = $true
-$DriveInputMsg.Location          = New-Object System.Drawing.Point(120,140)
+$DriveInputMsg.Location          = New-Object System.Drawing.Point(40,90)
 $DriveInputBox                   = New-Object System.Windows.Forms.TextBox
-$DriveInputBox.location          = New-Object System.Drawing.Point(200,160)
+$DriveInputBox.location          = New-Object System.Drawing.Point(370,90)
+$DriveInputBox.Size              = '30,50'
+$DriveInputBox.TextAlign         = 'Center'
+$DriveInputBox.MaxLength         = '1'
 $DriveLetter                     = $DriveInputBox.Text
 
 #-----------------[ Buttons ]------------------
@@ -116,7 +126,7 @@ $DisableAllBtn.BackColor         = "#E32D4E"
 $DisableAllBtn.text              = "Disable Sophos InterX tamper protection"
 $DisableAllBtn.width             = 150
 $DisableAllBtn.height            = 50
-$DisableAllBtn.location          = New-Object System.Drawing.Point(80,200)
+$DisableAllBtn.location          = New-Object System.Drawing.Point(80,130)
 $DisableAllBtn.Font              = 'Microsoft Sans Serif,10'
 $DisableAllBtn.ForeColor         = "#ffffff"
 $DisableAllBtn.Add_Click({ DISTP })
@@ -129,11 +139,36 @@ $EnableAllBtn.BackColor          = "#54BF26"
 $EnableAllBtn.text               = "Enable Sophos InterX tamper protection"
 $EnableAllBtn.width              = 150
 $EnableAllBtn.height             = 50
-$EnableAllBtn.location           = New-Object System.Drawing.Point(260,200)
+$EnableAllBtn.location           = New-Object System.Drawing.Point(260,130)
 $EnableAllBtn.Font               = 'Microsoft Sans Serif,10'
 $EnableAllBtn.ForeColor          = "#ffffff"
 $EnableAllBtn.Add_Click({ ENTP })
 $Form.Controls.Add($EnableAllBtn)
+
+
+#Reboot Button
+$RebootBtn                    = New-Object system.Windows.Forms.Button
+$RebootBtn.BackColor          = "#BF26AC"
+$RebootBtn.text               = "Reboot Computer"
+$RebootBtn.width              = 150
+$RebootBtn.height             = 50
+$RebootBtn.location           = New-Object System.Drawing.Point(80,200)
+$RebootBtn.Font               = 'Microsoft Sans Serif,10'
+$RebootBtn.ForeColor          = "#ffffff"
+$RebootBtn.Add_Click({ RebootPC })
+$Form.Controls.Add($RebootBtn)
+
+#How to Use Button
+$htuBtn                    = New-Object system.Windows.Forms.Button
+$htuBtn.BackColor          = "#4438D2"
+$htuBtn.text               = "How To Use"
+$htuBtn.width              = 150
+$htuBtn.height             = 50
+$htuBtn.location           = New-Object System.Drawing.Point(260,200)
+$htuBtn.Font               = 'Microsoft Sans Serif,10'
+$htuBtn.ForeColor          = "#ffffff"
+$htuBtn.Add_Click({ htuDisplay })
+$Form.Controls.Add($htuBtn)
 
 #Licensing
 $Licensing                     = New-Object system.Windows.Forms.Label
@@ -173,7 +208,12 @@ $DriveMsgIcon                  = [System.Windows.MessageBoxImage]::Error
 $RebootMsgTitle               = "Reboot Confirmù"
 $RebootMsgbody                = "Are you sure you are ready to reboot?ù"
 $RebootMsgIcon                = [System.Windows.MessageBoxImage]::Warning
-#$RebootMsg                    = [System.Windows.MessageBox]::Show($RebootMsgbody,$RebootMsgTitle,$ButtonBool,$RebootMsgIcon)
+#$RebootMsg                   = [System.Windows.MessageBox]::Show($RebootMsgbody,$RebootMsgTitle,$ButtonBool,$RebootMsgIcon)
+
+#How to Use
+$htuTitle                     = "How To Use"
+$htuBody                      = "Step 1: Create a WIN PE USB boot disk, whatever you like, like medicat USB or NoName XPE, boot from it`n`nStep 2: Check what is the drive letter of the original system disk being loaded in WIN PE envoriment`n`nStep 3: Run this tool, follow the step`n`nStep 4: Once it reboot and enter to the login screen, login, then shutdown and repeat from Step 1 again`n`nStep 5: Done, it should be now eiter locked or unlocked, depending on your choice."
+$htuIcon                      = [System.Windows.MessageBoxImage]::Information
 
 
 # ADD OTHER ELEMENTS ABOVE THIS LINE IF NEEDED
