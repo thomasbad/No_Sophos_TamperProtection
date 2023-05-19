@@ -38,3 +38,4 @@ Set-ExecutionPolicy Unrestricted
 
 ## BUG
 No time to fix the Drive Letter vaildation check yet, just input the correct the drive letter and it will work
+The GUI version haven't been test yet, but since the code is mostly copy from CLI version, it should works fine. If it doesn't, please let me know.
